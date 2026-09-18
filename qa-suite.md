@@ -481,3 +481,459 @@ Steps
 Expected Result
 
 Next button is disabled because there are no more pages
+
+
+
+#API Test Cases
+
+TC 031: Verify Visitors API returns visitor records
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Send a GET request to `/api/visitors'
+
+Expected Result
+
+API returns a successful response and the visitor records are displayed
+
+
+TC 032: Verify Visitors API response status code
+
+Precondition
+
+Application API is running
+
+Steps
+
+1. Open Postman
+2. Send a GET request to `/api/visitors'
+3. Check the response status code
+
+Expected Result
+
+API returns HTTP 200 status code
+
+
+TC 033: Create visitor using valid information through API
+
+Precondition
+
+Application API is running
+
+Steps
+
+1. Open Postman
+2. Create a POST request to `/api/visitors`
+3. Add valid visitor information in the request body
+4. Send the request
+
+Expected Result
+
+Visitor is created successfully and the API returns the created visitor information
+
+
+TC 034: Verify visitor creation with missing Full Name
+
+Precondition
+
+Application API is running
+
+Steps
+
+1. Open Postman
+2. Create a POST request to `/api/visitors`
+3. Leave Full Name empty or omit the field
+4. Provide valid values for the other required fields
+5. Send the request
+
+Expected Result
+
+API rejects the request and returns an appropriate validation error
+
+
+TC 035: Verify visitor creation with missing Company
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Create a POST request to `/api/visitors`
+3 Leave Company empty or omit the field
+4 Provide valid values for the other required fields
+5 Send the request
+
+Expected Result
+
+API rejects the request and returns an appropriate validation error
+
+
+TC 036: Verify visitor creation with missing Host
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Create a POST request to `/api/visitors'
+3 Leave Host empty or omit the field
+4 Provide valid values for the other required fields
+5 Send the request
+
+Expected Result
+
+API rejects the request and returns an appropriate validation error
+
+
+TC 037: Verify visitor creation with missing Purpose
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Create a POST request to `/api/visitors'
+3 Leave Purpose empty or omit the field   
+4 Provide valid values for the other required fields
+5 Send the request
+
+Expected Result
+
+API rejects the request and returns an appropriate validation error
+
+
+TC 038: Verify single character Full Name through API
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Create a POST request to `/api/visitors'
+3 Enter `A' as the Full Name
+4 Provide valid values for the other fields
+5 Send the request
+
+Expected Result
+
+API validates the Full Name according to the defined business rule
+
+
+TC 039: Verify whitespace-only Full Name through API
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Create a POST request to `/api/visitors'
+3 Enter only spaces in the Full Name field
+4 Provide valid values for the other fields
+5 Send the request
+
+Expected Result
+
+API rejects the whitespace-only Full Name and returns an appropriate validation error
+
+
+TC 040: Verify numeric-only Full Name through API
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Create a POST request to `/api/visitors'
+3 Enter `123456' as the Full Name
+4 Provide valid values for the other fields
+5 Send the request
+
+Expected Result
+
+API handles the numeric-only Full Name according to the defined business rule
+
+
+TC 041: Verify extremely long Full Name through API
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Create a POST request to `/api/visitors'
+3 Enter an extremely long value in the Full Name field
+4 Provide valid values for the other fields
+5 Send the request
+
+Expected Result
+
+API handles the long input safely without a server error or malformed response
+
+
+TC 042: Verify duplicate visitor registration through API
+
+Precondition
+
+A visitor with the same information already exists
+
+Steps
+
+1 Open Postman
+2 Create a POST request to `/api/visitors'
+3 Submit the same visitor information again
+4 Send the request
+
+Expected Result
+
+API handles duplicate visitor registration according to the defined business rule
+
+
+TC 043: Verify visitor search API
+
+Precondition
+
+Application API is running and visitor records are available
+
+Steps
+
+1 Open Postman
+2 Send a GET request to `/api/visitors/search'
+3 Provide a valid search query
+4 Send the request
+
+Expected Result
+
+API returns visitor records matching the search criteria
+
+
+TC 044: Verify search for non-existing visitor
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Send a GET request to `/api/visitors/search'
+3 Provide a search value that does not exist
+4 Send the request
+
+Expected Result
+
+API returns an empty result or appropriate response indicating that no matching visitor was found
+
+
+TC 045: Verify visitor check out through API
+
+Precondition
+
+An active visitor exists
+
+Steps
+
+1 Open Postman
+2 Identify the visitor ID
+3 Send a PATCH request to `/api/visitors/:id/check_out'
+4 Replace `:id' with the visitor ID
+5 Send the request
+
+Expected Result
+
+Visitor is successfully checked out and the API returns an appropriate response
+
+
+TC 046: Verify check out of non-existing visitor
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Send a PATCH request to `/api/visitors/:id/check_out'
+3 Use a non-existing visitor ID
+4 Send the request
+
+Expected Result
+
+API returns an appropriate 4xx error response
+
+
+TC 047: Verify already checked out visitor
+
+Precondition
+
+A visitor has already been checked out
+
+Steps
+
+1 Open Postman
+2 Send a PATCH request to `/api/visitors/:id/check_out'
+3 Use the ID of the already checked out visitor
+4 Send the request
+
+Expected Result
+
+API handles the request appropriately and does not create an invalid visitor state
+
+
+TC 048: Verify visitor deactivation through API
+
+Precondition
+
+An active visitor exists
+
+Steps
+
+1 Open Postman
+2 Identify the visitor ID
+3 Send a PATCH request to `/api/visitors/:id/deactivate'
+4 Replace `:id' with the visitor ID
+5 Send the request
+
+Expected Result
+
+Visitor is successfully deactivated and the API returns an appropriate response
+
+
+TC 049: Verify deactivation of non-existing visitor
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Send a PATCH request to `/api/visitors/:id/deactivate'
+3 Use a non-existing visitor ID
+4 Send the request
+
+Expected Result
+
+API returns an appropriate 4xx error response
+
+
+TC 050: Verify already deactivated visitor
+
+Precondition
+
+A visitor has already been deactivated
+
+Steps
+
+1 Open Postman
+2 Send a PATCH request to `/api/visitors/:id/deactivate'
+3 Use the ID of the already deactivated visitor
+4 Send the request
+
+Expected Result
+
+API handles the request appropriately and does not create an invalid visitor state
+
+
+TC 051: Verify Hosts API
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Send a GET request to `/api/hosts'
+
+Expected Result
+
+API returns a successful response containing the available hosts
+
+
+TC 052: Verify Hosts API response status code
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Send a GET request to `/api/hosts'
+3 Check the response status code
+
+Expected Result
+
+API returns HTTP 200 status code
+
+
+TC 053: Verify invalid visitor endpoint
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Send a GET request to an invalid visitor endpoint
+3 Send the request
+
+Expected Result
+
+API returns an appropriate 4xx error response
+
+
+TC 054: Verify invalid visitor ID during check out
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Send a PATCH request to `/api/visitors/:id/check_out'
+3 Use an invalid visitor ID
+4 Send the request
+
+Expected Result
+
+API handles the invalid ID appropriately and does not return an unexpected server error
+
+
+TC 055: Verify invalid visitor ID during deactivation
+
+Precondition
+
+Application API is running
+
+Steps
+
+1 Open Postman
+2 Send a PATCH request to `/api/visitors/:id/deactivate'
+3 Use an invalid visitor ID
+4 Send the request
+
+Expected Result
+
+API handles the invalid ID appropriately and does not return an unexpected server error
