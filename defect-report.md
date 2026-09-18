@@ -250,6 +250,42 @@ The Next page button should remain enabled when additional active visitor record
 Actual Result:
 The Next page button becomes disabled even though additional active visitor records are still available.
 
+#Defect 11
+
+Summary: API allows visitor creation with missing required fields
+
+Type: Functional
+
+Description:
+
+The visitor creation API allows a visitor to be created even when the required Full Name and Host fields are empty. The API returns a `201 Created' response instead of rejecting the request.
+
+Steps to Reproduce:
+
+1 Open Postman.
+2 Send a `POST' request to the visitor creation endpoint.
+3 Use the following request body:
+
+
+{
+  "company_name": "",
+  "full_name": "",
+  "host_id": "",
+  "purpose": ""
+}
+
+4 Send the request.
+5 Observe the response.
+
+Expected Result:
+
+The API should reject the request because Full Name and Host are required fields. A validation error response should be returned, such as `400 Bad Request'.
+
+Actual Result:
+
+The API returns `201 Created' and allows the visitor record to be created even though the required Full Name and Host fields are empty.
+
+
 
 Open Questions
 Open Question 1
